@@ -10,9 +10,9 @@ class Tests(unittest.TestCase):
     def test_create_team(self):
 
         team = business.teams.Team(name="test")
-        teambll = business.teams.Business(MemoryStorage())
+        team_bll = business.teams.Business(MemoryStorage())
 
-        result = teambll.create_team(team=team)
+        result = team_bll.create_team(team=team)
 
         self.assertIsNotNone(result.id)
         self.assertEqual(result.name, team.name)
@@ -34,9 +34,9 @@ class Tests(unittest.TestCase):
         memory = MemoryStorage()
         memory.map["bar"] = business.teams.Team(name="foo")
 
-        teambll = business.teams.Business(memory)
+        team_bll = business.teams.Business(memory)
 
-        result = teambll.get_team(name="foo")
+        result = team_bll.get_team(name="foo")
 
         self.assertEqual(result, memory.map["bar"])
 
@@ -45,8 +45,21 @@ class Tests(unittest.TestCase):
         memory = MemoryStorage()
         memory.map["bar"] = business.teams.Team(name="foo")
 
-        teambll = business.teams.Business(memory)
+        team_bll = business.teams.Business(memory)
 
-        result = teambll.get_team(id="bar")
+        result = team_bll.get_team(id="bar")
 
         self.assertEqual(result, memory.map["bar"])
+
+    def test_remove_player(self):
+
+        memory = MemoryStorage()
+        team = business.teams.Team(name="foo")
+        team.player_ids.append(1)
+
+        memory.map["bar"] = team
+
+        teambll = business.teams.Business(memory)
+        teambll.remove_player(team_id="bar", player_id=1)
+
+        self.assertEqual(memory.map["bar"].player_ids, [])

@@ -19,13 +19,13 @@ class Tests(unittest.TestCase):
         self.assertEqual(retrieved_match.name, match.name)
 
     def test_assign_team(self):
-        matchbll = business.matches.Business(storage=MemoryStorage())
-        teambll = business.teams.Business(storage=MemoryStorage())
+        match_bll = business.matches.Business(storage=MemoryStorage())
+        team_bll = business.teams.Business(storage=MemoryStorage())
 
-        match = matchbll.create_match(business.matches.Match(name="MyMatch"))
-        team = teambll.create_team(business.teams.Team(name="MyTeam"))
+        match = match_bll.create_match(business.matches.Match(name="MyMatch"))
+        team = team_bll.create_team(business.teams.Team(name="MyTeam"))
 
-        result = matchbll.assign_team(match.id, team.id)
+        result = match_bll.assign_team(match.id, team.id)
 
         self.assertEqual(result, True)
 

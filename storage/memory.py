@@ -6,7 +6,7 @@ class MemoryStorage(Storage):
     def __init__(self):
         self.map = {}
 
-    def write(self, record : Record):
+    def write(self, record: Record):
         if not record.id:
             record.id = hash(record)
         self.map[record.id] = record
@@ -34,7 +34,6 @@ class MemoryStorage(Storage):
 
             if matches:
                 result.append(record)
-
 
         return result
 

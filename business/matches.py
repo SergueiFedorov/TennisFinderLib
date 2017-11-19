@@ -1,5 +1,7 @@
 import storage.interface
 
+from typing import Union
+
 
 class Match(storage.interface.Record):
 
@@ -15,7 +17,7 @@ class Business(object):
     def __init__(self, storage : storage.interface.Storage):
         self.storage = storage
 
-    def create_match(self, match : Match) -> Match:
+    def create_match(self, match : Match) -> Union[Match, None]:
         return self.storage.write(match)
 
     def save_match(self, match) -> Match:
@@ -24,13 +26,13 @@ class Business(object):
 
         return self.storage.update(match)
 
-    def find_match(self, id) -> Match:
+    def find_match(self, id) -> Union[Match, None]:
         try:
             return self.storage.read(id)[0]
         except IndexError:
             return []
 
-    def assign_team(self, match_id, team_id) -> Match:
+    def assign_team(self, match_id, team_id) -> bool:
         match = self.find_match(match_id)
         match.team_ids.append(team_id)
         try:
@@ -40,7 +42,16 @@ class Business(object):
             # TODO: Define proper exception
             return False
 
-    def record_score(self, record):
+    def remove_team(self, match_id, team_id) -> bool:
+        match = self.find_match(id=match_id)
+        try:
+            match.team_ids.remove(team_id)
+            self.save_match(match)
+            return True
+        except (IndexError, ValueError):
+            return False
+
+    def record_score(self, record) -> bool:
 
         assert record.id
 
