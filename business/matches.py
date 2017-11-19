@@ -18,7 +18,7 @@ class Business(object):
         return self.storage.write(game)
 
     def save_game(self, game) -> Game:
-        return self.storage.write(game)
+        return self.storage.update(game)
 
     def find_game(self, id) -> Game:
         return self.storage.read(id)

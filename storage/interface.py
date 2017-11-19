@@ -13,7 +13,10 @@ class Storage(metaclass=ABCMeta):
         pass
 
     def write(self, record : Record) -> Record:
-        return
+        pass
 
     def delete(self, id):
+        pass
+
+    def update(self, record: Record) -> Record:
         pass
