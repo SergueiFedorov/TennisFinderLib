@@ -1,12 +1,13 @@
 import storage.interface
 
 
-class Game(storage.interface.Record):
+class Match(storage.interface.Record):
 
     def __init__(self, name):
-        super(Game, self).__init__()
+        super(Match, self).__init__()
         self.name = name
         self.team_ids = []
+        self.scores = []
 
 
 class Business(object):
@@ -14,21 +15,37 @@ class Business(object):
     def __init__(self, storage : storage.interface.Storage):
         self.storage = storage
 
-    def create_game(self, game : Game) -> Game:
-        return self.storage.write(game)
+    def create_match(self, match : Match) -> Match:
+        return self.storage.write(match)
 
-    def save_game(self, game) -> Game:
-        return self.storage.update(game)
+    def save_match(self, match) -> Match:
 
-    def find_game(self, id) -> Game:
+        assert match.id
+
+        return self.storage.update(match)
+
+    def find_match(self, id) -> Match:
         return self.storage.read(id)
 
-    def assign_team(self, game_id, team_id) -> Game:
-        game = self.find_game(game_id)
-        game.team_ids.append(team_id)
+    def assign_team(self, match_id, team_id) -> Match:
+        match = self.find_match(match_id)
+        match.team_ids.append(team_id)
         try:
-            self.save_game(game)
+            self.save_match(match)
             return True
         except:
             # TODO: Define proper exception
+            return False
+
+    def record_score(self, record):
+
+        assert record.id
+
+        match = self.find_match(record.match_id)
+        match.scores.append(record.id)
+
+        try:
+            self.save_match(match)
+            return True
+        except:
             return False
