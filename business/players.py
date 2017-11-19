@@ -16,3 +16,6 @@ class Business(object):
 
     def create_player(self, player : Player) -> Player:
         return self.storage.write(player)
+
+    def save_player(self, player: Player) -> Player:
+        return self.storage.update(player)

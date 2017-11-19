@@ -28,3 +28,25 @@ class Tests(unittest.TestCase):
         result = teambll.assign_player(team.id , player.id)
 
         self.assertEqual(result, True)
+
+    def test_get_team_by_name(self):
+
+        memory = MemoryStorage()
+        memory.map["bar"] = business.teams.Team(name="foo")
+
+        teambll = business.teams.Business(memory)
+
+        result = teambll.get_team(name="foo")
+
+        self.assertEqual(result, memory.map["bar"])
+
+    def test_get_team_by_id(self):
+
+        memory = MemoryStorage()
+        memory.map["bar"] = business.teams.Team(name="foo")
+
+        teambll = business.teams.Business(memory)
+
+        result = teambll.get_team(id="bar")
+
+        self.assertEqual(result, memory.map["bar"])

@@ -20,8 +20,14 @@ class Business(object):
     def save_team(self, team: Team) -> Team:
         return self.storage.write(team)
 
+    def get_team(self, id=None, name=None):
+        try:
+            return self.storage.read(id, where={"name": name})[0]
+        except IndexError:
+            return None
+
     def assign_player(self, team_id, player_id):
-        team = self.storage.read(team_id)
+        team = self.get_team(team_id)
         team.player_ids.append(player_id)
         try:
             self.save_team(team)

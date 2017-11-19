@@ -25,7 +25,10 @@ class Business(object):
         return self.storage.update(match)
 
     def find_match(self, id) -> Match:
-        return self.storage.read(id)
+        try:
+            return self.storage.read(id)[0]
+        except IndexError:
+            return []
 
     def assign_team(self, match_id, team_id) -> Match:
         match = self.find_match(match_id)

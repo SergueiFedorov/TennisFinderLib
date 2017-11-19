@@ -21,7 +21,7 @@ class Tests(unittest.TestCase):
         created_record = storage.write(Record())
         read_record = storage.read(created_record.id)
 
-        self.assertEqual(created_record.id, read_record.id)
+        self.assertEqual(created_record.id, read_record[0].id)
 
     def test_get_where(self):
 

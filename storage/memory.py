@@ -19,7 +19,7 @@ class MemoryStorage(Storage):
         where = where or {}
 
         if id:
-            return self.map[id]
+            return [self.map[id]]
 
         result = []
         for _, record in self.map.items():
