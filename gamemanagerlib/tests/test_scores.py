@@ -1,15 +1,17 @@
 import unittest
-import business.scores
-from storage.memory import MemoryStorage
+
+from gamemanagerlib.storage.memory import MemoryStorage
+
+import gamemanagerlib.business.scores
 
 
 class Tests(unittest.TestCase):
 
     def test_create_score(self):
 
-        bll = business.scores.Business(MemoryStorage())
+        bll = gamemanagerlib.business.scores.Business(MemoryStorage())
 
-        record = business.scores.Score("team", "match", 1)
+        record = gamemanagerlib.business.scores.Score("team", "match", 1)
 
         record = bll.record_score(record)
 
@@ -18,9 +20,9 @@ class Tests(unittest.TestCase):
     def test_get_score(self):
 
         storage = MemoryStorage()
-        storage.map["foo"] = business.scores.Score("team", "match", 1)
+        storage.map["foo"] = gamemanagerlib.business.scores.Score("team", "match", 1)
 
-        bll = business.scores.Business(storage)
+        bll = gamemanagerlib.business.scores.Business(storage)
 
         found = bll.get_scores_for_match(team_id="team", match_id="match")
 

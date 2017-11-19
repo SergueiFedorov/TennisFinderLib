@@ -1,4 +1,4 @@
-from storage.interface import Storage, Record
+from gamemanagerlib.storage.interface import Storage, Record
 
 
 class MemoryStorage(Storage):

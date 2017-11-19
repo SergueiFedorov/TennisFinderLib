@@ -1,9 +1,9 @@
-import storage.interface
-
 from typing import Union
 
+import gamemanagerlib.storage.interface
 
-class Team(storage.interface.Record):
+
+class Team(gamemanagerlib.storage.interface.Record):
 
     def __init__(self, name):
         super(Team, self).__init__()

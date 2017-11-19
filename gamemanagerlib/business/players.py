@@ -1,9 +1,9 @@
-import storage.interface
-
 from typing import Union
 
+import gamemanagerlib.storage.interface
 
-class Player(storage.interface.Record):
+
+class Player(gamemanagerlib.storage.interface.Record):
 
     def __init__(self, name):
         super(Player, self).__init__()
@@ -12,7 +12,7 @@ class Player(storage.interface.Record):
 
 class Business(object):
 
-    def __init__(self, storage : storage.interface.Storage):
+    def __init__(self, storage : gamemanagerlib.storage.interface.Storage):
         super(Business, self).__init__()
         self.storage = storage
 

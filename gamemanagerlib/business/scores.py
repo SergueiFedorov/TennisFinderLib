@@ -1,7 +1,7 @@
-import storage.interface
+import gamemanagerlib.storage.interface
 
 
-class Score(storage.interface.Record):
+class Score(gamemanagerlib.storage.interface.Record):
 
     def __init__(self, team_id, match_id, value):
         super(Score, self).__init__()
@@ -11,7 +11,7 @@ class Score(storage.interface.Record):
         self.value = value
 
 
-class Business(storage.interface.Storage):
+class Business(gamemanagerlib.storage.interface.Storage):
 
     def __init__(self, storage):
         self.storage = storage

@@ -1,6 +1,6 @@
 import unittest
 
-from storage.memory import MemoryStorage, Record, Storage
+from gamemanagerlib.storage.memory import MemoryStorage, Record
 
 
 class Tests(unittest.TestCase):
