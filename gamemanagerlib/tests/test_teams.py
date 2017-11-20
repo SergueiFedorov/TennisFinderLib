@@ -3,7 +3,7 @@ import unittest
 from gamemanagerlib.storage.memory import MemoryStorage
 
 import gamemanagerlib.business.players
-
+import gamemanagerlib.business.teams
 
 class Tests(unittest.TestCase):
 
@@ -63,3 +63,17 @@ class Tests(unittest.TestCase):
         teambll.remove_player(team_id="bar", player_id=1)
 
         self.assertEqual(memory.map["bar"].player_ids, [])
+
+    def test_get_team_for_player(self):
+
+        player_id = 1
+
+        memory = MemoryStorage()
+        team = gamemanagerlib.business.teams.Team(name="foo")
+        team.player_ids.append(player_id)
+        memory.map[100] = team
+
+        teambll = gamemanagerlib.business.teams.Business(memory)
+        teams = teambll.get_player_teams(player_id)
+
+        self.assertEqual(teams[0], team)

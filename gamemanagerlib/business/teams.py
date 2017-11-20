@@ -47,4 +47,4 @@ class Business(object):
             return False
 
     def get_player_teams(self, player_id) -> list:
-        pass
+        return self.storage.read(contains={"player_ids": player_id})
