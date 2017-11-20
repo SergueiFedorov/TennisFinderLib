@@ -39,3 +39,10 @@ class Tests(unittest.TestCase):
 
         self.assertEqual(len(found), 1)
         self.assertEqual(found[0], storage.map["bar"])
+
+    def test_record_not_found(self):
+
+        storage = MemoryStorage()  # Empty
+        result = storage.read(id="foo")
+
+        self.assertEqual(result, [])
