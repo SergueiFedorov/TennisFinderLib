@@ -42,6 +42,18 @@ class Tests(unittest.TestCase):
         self.assertEqual(result, True)
         self.assertEqual(matchbll.find_match(match.id), match)
 
+    def test_get_matches_by_team(self):
 
+        memory = MemoryStorage()
+
+        match = gamemanagerlib.business.matches.Match("foo")
+        match.team_ids.append(1)
+        memory.map["foo"] = match
+
+        matchbll = gamemanagerlib.business.matches.Business(memory)
+        result = matchbll.get_team_matches(1)
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0], match)
 
 

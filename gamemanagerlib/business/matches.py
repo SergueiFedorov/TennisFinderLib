@@ -63,3 +63,6 @@ class Business(object):
             return True
         except:
             return False
+
+    def get_team_matches(self, team_id):
+        return self.storage.read(contains={"team_ids": team_id})
