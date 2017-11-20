@@ -21,3 +21,6 @@ class Business(object):
 
     def save_player(self, player: Player) -> Union[Player, None]:
         return self.storage.update(player)
+
+    def get_player(self, player_id):
+        return self.storage.read(player_id)
