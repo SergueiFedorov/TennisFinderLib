@@ -45,3 +45,6 @@ class Business(object):
             return True
         except:
             return False
+
+    def get_player_teams(self, player_id) -> list:
+        pass

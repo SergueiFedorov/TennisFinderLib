@@ -3,6 +3,12 @@ import unittest
 from gamemanagerlib.storage.memory import MemoryStorage, Record
 
 
+class Dummy(Record):
+    def __init__(self, foo, *args, **kwargs):
+        super(Dummy, self).__init__(*args, **kwargs)
+        self.foo = foo
+
+
 class Tests(unittest.TestCase):
 
     def test_create_record(self):
@@ -25,12 +31,6 @@ class Tests(unittest.TestCase):
 
     def test_get_where(self):
 
-        class Dummy(Record):
-
-            def __init__(self, foo, *args, **kwargs):
-                super(Dummy, self).__init__(*args, **kwargs)
-                self.foo = foo
-
         storage = MemoryStorage()
         storage.map["bar"] = Dummy(foo="bar")
         storage.map["ipsum"] = Dummy(foo="ipsum")
@@ -46,3 +46,33 @@ class Tests(unittest.TestCase):
         result = storage.read(id="foo")
 
         self.assertEqual(result, [])
+
+    def test_get_in(self):
+
+        storage = MemoryStorage()
+        storage.map["bar"] = Dummy(foo=[1, 2])
+        storage.map["ipsum"] = Dummy(foo=[4])
+
+        found = storage.read(contains={"foo": [1]})
+
+        self.assertEqual(found[0], storage.map["bar"])
+
+    def test_get_in_not_found(self):
+
+        storage = MemoryStorage()
+        storage.map["bar"] = Dummy(foo=[1, 2])
+        storage.map["ipsum"] = Dummy(foo=[])
+
+        found = storage.read(contains={"foo": [3]})
+
+        self.assertEqual(len(found), 0)
+
+    def test_get_in_none_array(self):
+
+        storage = MemoryStorage()
+        storage.map["bar"] = Dummy(foo=[1, 2])
+        storage.map["ipsum"] = Dummy(foo=[4])
+
+        found = storage.read(contains={"foo": 1})
+
+        self.assertEqual(found[0], storage.map["bar"])
