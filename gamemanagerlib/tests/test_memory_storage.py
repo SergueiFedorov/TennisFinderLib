@@ -43,7 +43,7 @@ class Tests(unittest.TestCase):
     def test_record_not_found(self):
 
         storage = MemoryStorage()  # Empty
-        result = storage.read(id="foo")
+        result = storage.read(id=999)
 
         self.assertEqual(result, [])
 

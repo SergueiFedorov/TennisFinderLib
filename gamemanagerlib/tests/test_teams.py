@@ -43,13 +43,13 @@ class Tests(unittest.TestCase):
     def test_get_team_by_id(self):
 
         memory = MemoryStorage()
-        memory.map["bar"] = gamemanagerlib.business.teams.Team(name="foo")
+        memory.map[999] = gamemanagerlib.business.teams.Team(name="foo")
 
         team_bll = gamemanagerlib.business.teams.Business(memory)
 
-        result = team_bll.get_team(id="bar")
+        result = team_bll.get_team(id=999)
 
-        self.assertEqual(result, memory.map["bar"])
+        self.assertEqual(result, memory.map[999])
 
     def test_remove_player(self):
 
@@ -57,12 +57,12 @@ class Tests(unittest.TestCase):
         team = gamemanagerlib.business.teams.Team(name="foo")
         team.player_ids.append(1)
 
-        memory.map["bar"] = team
+        memory.map[999] = team
 
         teambll = gamemanagerlib.business.teams.Business(memory)
-        teambll.remove_player(team_id="bar", player_id=1)
+        teambll.remove_player(team_id=999, player_id=1)
 
-        self.assertEqual(memory.map["bar"].player_ids, [])
+        self.assertEqual(memory.map[999].player_ids, [])
 
     def test_get_team_for_player(self):
 
