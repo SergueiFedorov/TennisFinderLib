@@ -39,11 +39,11 @@ class Business(object):
 
     def assign_player(self, team_id, player_id) -> bool:
         team = self.get_team(team_id)
-        team.player_ids.append(player_id)
         try:
+            team.player_ids.append(player_id)
             self.save_team(team)
             return True
-        except:
+        except (AttributeError,):
             return False
 
     def get_player_teams(self, player_id) -> list:
