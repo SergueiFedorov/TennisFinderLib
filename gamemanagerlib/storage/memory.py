@@ -20,6 +20,7 @@ class MemoryStorage(Storage):
         contains = contains or {}
 
         if id:
+            id = int(id)
             record = self.map.get(id)
             return [record] if record else []
 
