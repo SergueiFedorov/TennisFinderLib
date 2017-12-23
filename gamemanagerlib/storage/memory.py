@@ -1,5 +1,5 @@
 from gamemanagerlib.storage.interface import Storage, Record
-
+import uuid
 
 class MemoryStorage(Storage):
 
@@ -8,7 +8,7 @@ class MemoryStorage(Storage):
 
     def write(self, record: Record):
         if not record.id:
-            record.id = hash(record)
+            record.id = str(uuid.uuid4())
         self.map[record.id] = record
         return record
 
@@ -20,7 +20,6 @@ class MemoryStorage(Storage):
         contains = contains or {}
 
         if id:
-            id = int(id)
             record = self.map.get(id)
             return [record] if record else []
 
